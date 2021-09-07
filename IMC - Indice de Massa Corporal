@@ -1,0 +1,49 @@
+package edu.newton.ldp.lab;
+
+import javax.swing.JOptionPane;
+
+/**
+ * 
+ * Problema: Informar ao usuário o IMC (Índice de Massa Corporal) e nível de IMC a paritr do seu peso e altura
+ * 
+ * Entrada: Peso e altura
+ * Saída: Informar o IMC e o nível de IMC
+ * 
+ * @author wagner.evangelista
+ *
+ */
+public class IMCIndiceMassaCorporal {
+
+	public static void main(String[] args) {
+		//declaração de variáveis
+		Double peso,altura,imc;
+		
+		//entrada
+		JOptionPane.showMessageDialog(null, "Programa para cálculo do IMC e a respectiva classificação");
+		String numero1 = JOptionPane.showInputDialog("Digite seu peso: ");
+		peso = Double.parseDouble(numero1.replace(",", "."));
+		
+		String numero2 = JOptionPane.showInputDialog("Digite sua altura: ");
+		altura = Double.parseDouble(numero2.replace(",", "."));
+		
+		//processamento
+		imc = peso/(altura*altura);
+				
+		if (imc < 18.5) {
+			JOptionPane.showMessageDialog(null, "Seu IMC é " + String.format("imc = %.2f", imc) + " e o nível do seu IMC está classificado como Magreza");
+		}
+		else if (imc >= 18.5 && imc <= 24.9) {
+			JOptionPane.showMessageDialog(null, "Seu IMC é " + String.format("imc = %.2f", imc) + " e o nível do seu IMC está classificado como Normal");
+		}
+		else if (imc >= 25 && imc <= 29.9) {
+			JOptionPane.showMessageDialog(null, "Seu IMC é " + String.format("imc = %.2f", imc) + " e o nível do seu IMC está classificado como Sobrepeso");
+		}
+		else if (imc >= 30 && imc <= 39.9) {
+			JOptionPane.showMessageDialog(null, "Seu IMC é " + String.format("imc = %.2f", imc) + " e o nível do seu IMC está classificado como Obesidade");
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Seu IMC é " + String.format("imc = %.2f", imc) + " e o nível do seu IMC está classificado como Obesidade Grave");
+		}
+	}
+
+}
