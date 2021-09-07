@@ -1,0 +1,46 @@
+package edu.newton.ldp.lab;
+
+import javax.swing.JOptionPane;
+
+/**
+ * 
+ * Problema: O usuário informará um número e o programa informará se o mesmo é primo ou não
+ * 
+ * Entrada: Um número inteiro digitado
+ * Saída: Informar se o número digitado é ou não Primo
+ * 
+ * @author wagner.evangelista
+ *
+ */
+public class NumeroPrimo {
+
+	public static void main(String[] args) {
+		//declaração de variáveis
+		int x,r,y;
+		
+		//entrada
+		JOptionPane.showMessageDialog(null, "Programa que verifica se o número digitado é PRIMO");
+		String numero = JOptionPane.showInputDialog("Digite um número inteiro para verificar se é PRIMO: ");
+		
+		x = Integer.parseInt(numero);
+		
+		//processamento
+		y = x - 1;
+		r = 1;
+		
+		while (y > 1) {
+			r = x % y;
+			if (r == 0) {
+				y = 1;
+				JOptionPane.showMessageDialog(null, "O número " + x + " não é PRIMO");
+				System.exit(0);
+			}
+
+			else {
+				y = y - 1;
+			}
+		}
+		JOptionPane.showMessageDialog(null, "O número " + x + " é PRIMO");
+	}
+
+}
