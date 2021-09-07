@@ -1,0 +1,50 @@
+package edu.newton.ldp.lab;
+
+import javax.swing.JOptionPane;
+
+/**
+ * Objetivo do Programa: Calcula o imposto de renda a partir do salario do usuário, baseado na tabela de descontos do governo federal
+ * 
+ * Entrada: salário do usuário
+ * Saída: Alíquota e valor do desconto
+ * 
+ * @author wagner.evangelista
+ *
+ */
+
+public class CalculoIRPF {
+
+	public static void main(String[] args) {
+		Double salario, aliquota, desconto;
+		
+		JOptionPane.showMessageDialog(null, "Programa para cálculo do imposto de renda baseado no sálario do usuário");
+		String valor = JOptionPane.showInputDialog("Informe seu salário:");
+		salario = Double.parseDouble(valor.replace(",", "."));
+		
+		if (salario <= 1903.98) {
+			aliquota = 0.0;
+			JOptionPane.showMessageDialog(null, "Você está na faixa de isento do IRPF");
+		}
+		else if(salario > 1903.99 && salario <= 2826.65) {
+			aliquota = 7.5;
+			desconto = salario*(aliquota/100);
+			JOptionPane.showMessageDialog(null, "A alíquota do IRPF é " + String.format("aliquota = %.2f", aliquota) + " e o desconto de seu salário é " + String.format("desconto = %.2f", desconto));	
+		}
+		else if (salario > 2826.66 && salario <= 3751.05) {
+			aliquota = 15.0;
+			desconto = salario*(aliquota/100);
+			JOptionPane.showMessageDialog(null, "A alíquota do IRPF é " + String.format("aliquota = %.2f", aliquota) + " e o desconto de seu salário é " + String.format("desconto = %.2f", desconto));
+		}
+		else if (salario > 3751.06 && salario <= 4664.68) {
+			aliquota = 22.5;
+			desconto = salario*(aliquota/100);
+			JOptionPane.showMessageDialog(null, "A alíquota do IRPF é " + String.format("aliquota = %.2f", aliquota) + " e o desconto de seu salário é " + String.format("desconto = %.2f", desconto));
+		}
+		else {
+			aliquota = 27.5;
+			desconto = salario*(aliquota/100);
+			JOptionPane.showMessageDialog(null, "A alíquota do IRPF é " + String.format("aliquota = %.2f", aliquota) + " e o desconto de seu salário é " + String.format("desconto = %.2f", desconto));
+		}
+	}
+
+}
