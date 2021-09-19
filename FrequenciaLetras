@@ -1,0 +1,96 @@
+package edu.newton.ldp.u3;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+/**
+ * 
+ * 
+ * Problema: Dada uma frase digitada pelo usuário, exibir a frequência (número de ocorrências) das letras do alfabeto na frase informada. 
+ * Exibir a letra mais frequente da frase.
+ * 
+ * @author wagner.evangelista
+ *
+ */
+
+
+
+public class FrequenciaLetras {
+
+	public static void main(String[] args) {
+		// criar a janela
+		JFrame frame = new JFrame("Contador de Letras");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// definir os atributos da janela
+		frame.setSize(600,400);
+		
+		var painel = frame.getContentPane();
+		
+		// para cada componente da janela: criar o componente
+		// com as propriedades
+		
+		var painelNorte = new JPanel(new GridLayout(3,1));
+		var label = new JLabel("Digite uma frase:");
+		label.setBounds(100,100, 100, 100);
+		painelNorte.add(label);
+		
+		var entrada = new JTextField(50);
+		
+		painelNorte.add(entrada);
+		
+		painel.add(painelNorte, BorderLayout.NORTH);
+		
+		
+		var painelCentro = new JPanel(new GridLayout(3,4));
+		
+		var botao = new JButton("Contar Letras");
+		painelCentro.add(botao);
+		
+		painel.add(painelCentro, BorderLayout.CENTER);
+		
+		// resultado
+		var labelResultado = new JLabel("Resultado:");
+		var resposta = new JLabel();
+		
+		var painelSul = new JPanel(new FlowLayout());
+		painelSul.add(labelResultado);
+		painelSul.add(resposta);
+		painel.add(painelSul, BorderLayout.SOUTH);
+		
+		frame.pack();
+		frame.setVisible(true);
+		
+		botao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				var resposta = entrada.getText();
+				
+				 for(int i = 0; i < resposta.length(); i++){
+				    	int cont = 0;
+				        for(int y = 0; y < resposta.length(); y++){
+				            if(resposta.charAt(i) == resposta.charAt(y)) {
+				            	cont++;
+				            };
+				        }
+				        System.out.println(resposta.charAt(i)+": " + cont);
+				    }
+				 
+			}
+
+		});
+	}
+	
+	
+}
