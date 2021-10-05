@@ -1,0 +1,208 @@
+package edu.newton.ldp.lab3_4;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import java.util.List;
+
+public class PessoaFisica {
+	
+	String Nome_Completo;
+	String Num_CPF;
+	String Dados_Email;
+	String Num_Telefone;
+	String Dados_DtNascimento;
+	
+	// Modelo
+	
+	private static List<PessoaFisica> dados = new ArrayList<>();
+	private static int index = 0;
+	
+	private static void painel() {
+		
+	// Visão
+		JFrame frame = new JFrame("Cadastro Pessoa Fisica: " + dados.size());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JLabel indice = new JLabel ("Número Registro : " + index + "/" + dados.size());
+		frame.getContentPane().add(indice, BorderLayout.NORTH);
+		
+		// botôes
+		JButton avancar = new JButton("Avançar");
+		JButton voltar = new JButton("Voltar");
+		JButton salvar = new JButton("Salvar");
+		JButton excluir = new JButton("Excluir");
+		
+		// painel dos botôes 
+		JPanel PainelBotoes = new JPanel(new FlowLayout());
+		PainelBotoes.add(avancar);
+		PainelBotoes.add(voltar);
+		PainelBotoes.add(salvar);
+		PainelBotoes.add(excluir);
+		
+		frame.getContentPane().add(PainelBotoes, BorderLayout.SOUTH);
+		
+		// painel dos dados a serem preenchidos (No centro)
+		JLabel NomeCompleto = new JLabel("Nome Completo: ");
+		JTextField TxtNomeCompleto = new JTextField(30);
+		JLabel CPF = new JLabel("CPF: ");
+		JTextField TxtCPF = new JTextField(30);
+		JLabel Email = new JLabel("E-mail: ");
+		JTextField TxtEmail = new JTextField(30);
+		JLabel Telefone = new JLabel("Telefone: ");
+		JTextField TxtTelefone = new JTextField(30);
+		JLabel DtNascimento = new JLabel("Data Nascimento: ");
+		JTextField TxtDtNascimento = new JTextField(30);
+		JPanel PainelCamposCentro = new JPanel(new GridLayout(5,2));
+		PainelCamposCentro.add(NomeCompleto);
+		PainelCamposCentro.add(TxtNomeCompleto);
+		PainelCamposCentro.add(CPF);
+		PainelCamposCentro.add(TxtCPF);
+		PainelCamposCentro.add(Email);		
+		PainelCamposCentro.add(TxtEmail);
+		PainelCamposCentro.add(Telefone);
+		PainelCamposCentro.add(TxtTelefone);
+		PainelCamposCentro.add(DtNascimento);
+		PainelCamposCentro.add(TxtDtNascimento);
+		frame.getContentPane().add(PainelCamposCentro);
+		
+		// tornar o painel visivel
+		frame.pack();
+		frame.setVisible(true);
+		
+		
+	// Controle
+		// Ação para o botão Salvar
+		salvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				var pf = new PessoaFisica();
+				pf.Nome_Completo = TxtNomeCompleto.getText();
+				pf.Num_CPF = TxtCPF.getText();
+				pf.Dados_Email = TxtEmail.getText();
+				pf.Num_Telefone = TxtTelefone.getText();
+				pf.Dados_DtNascimento = TxtDtNascimento.getText();
+				
+				dados.add(pf);
+				
+				
+				indice.setText("Número Registro : " + index + "/" + dados.size());
+				frame.setTitle("Cadastro Pessoa Fisica: " + dados.size());
+				excluir.setEnabled(!dados.isEmpty()); // desativo o botão de excluir
+				
+				System.out.println("Leu na tela: " + pf.Nome_Completo);
+				System.out.println("Leu na tela: " + pf.Num_CPF);
+				System.out.println("Leu na tela: " + pf.Dados_Email);
+				System.out.println("Leu na tela: " + pf.Num_Telefone);
+				System.out.println("Leu na tela: " + pf.Dados_DtNascimento);
+				}
+		});
+		
+		// Ação para o botão Avançar
+		avancar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				index++; // avanço para o próximo indice
+				
+				if (index < dados.size()) {
+					TxtNomeCompleto.setText(dados.get(index).Nome_Completo);
+					TxtCPF.setText(dados.get(index).Num_CPF);
+					TxtEmail.setText(dados.get(index).Dados_Email);
+					TxtTelefone.setText(dados.get(index).Num_Telefone);
+					TxtDtNascimento.setText(dados.get(index).Dados_DtNascimento);
+				} else {
+					index = dados.size();
+					TxtNomeCompleto.setText("");
+					TxtCPF.setText("");
+					TxtEmail.setText("");
+					TxtTelefone.setText("");
+					TxtDtNascimento.setText("");
+				}
+				indice.setText("Número Registro : " + index + "/" + dados.size());
+			}
+		});
+		
+		// Ação para o botão Voltar
+		voltar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				index--; // volto ao indice anterior
+				
+				if (index >= 0) {
+					TxtNomeCompleto.setText(dados.get(index).Nome_Completo);
+					TxtCPF.setText(dados.get(index).Num_CPF);
+					TxtEmail.setText(dados.get(index).Dados_Email);
+					TxtTelefone.setText(dados.get(index).Num_Telefone);
+					TxtDtNascimento.setText(dados.get(index).Dados_DtNascimento);
+				} else {
+					index = 0;
+				}
+				indice.setText("Número Registro : " + index + "/" + dados.size());
+			}
+		});
+		
+		// Ação para o botão Excluir
+		excluir.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				var pf = new PessoaFisica();
+				pf.Nome_Completo = TxtNomeCompleto.getText();
+				pf.Num_CPF = TxtCPF.getText();
+				pf.Dados_Email = TxtEmail.getText();
+				pf.Num_Telefone = TxtTelefone.getText();
+				pf.Dados_DtNascimento = TxtDtNascimento.getText();
+				
+				if (pf.Nome_Completo.trim().isBlank() && pf.Num_CPF.trim().isBlank()
+						&& pf.Dados_Email.trim().isBlank() && pf.Num_Telefone.trim().isBlank()
+						&& pf.Dados_DtNascimento.trim().isBlank()) {
+					return;
+				}
+				
+				if(index < dados.size()) {
+					dados.remove(index);
+					index--;
+				}
+					
+				if (index < 0) {
+					index = 0;
+				}
+				
+				if (dados.size() > 0 && index < dados.size()) {
+					TxtNomeCompleto.setText(dados.get(index).Nome_Completo);
+					TxtCPF.setText(dados.get(index).Num_CPF);
+					TxtEmail.setText(dados.get(index).Dados_Email);
+					TxtTelefone.setText(dados.get(index).Num_Telefone);
+					TxtDtNascimento.setText(dados.get(index).Dados_DtNascimento);
+				} else {
+					TxtNomeCompleto.setText("");
+					TxtCPF.setText("");
+					TxtEmail.setText("");
+					TxtTelefone.setText("");
+					TxtDtNascimento.setText("");
+				}
+				
+				indice.setText("Número Registro : " + index + "/" + dados.size());
+				frame.setTitle("Cadastro Pessoa Fisica: " + dados.size());
+
+				excluir.setEnabled(!dados.isEmpty());
+				
+			}
+		});
+		excluir.setEnabled(false);
+	}
+			
+	
+	public static void main (String[]args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				painel();
+			}
+		});
+		}
+}
